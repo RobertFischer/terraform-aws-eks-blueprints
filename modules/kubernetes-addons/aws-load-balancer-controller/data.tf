@@ -5,11 +5,6 @@ data "aws_iam_policy_document" "aws_lb" {
     resources = ["*"]
     actions   = ["iam:CreateServiceLinkedRole"]
 
-    condition {
-      test     = "StringEquals"
-      variable = "iam:AWSServiceName"
-      values   = ["elasticloadbalancing.amazonaws.com"]
-    }
   }
 
   statement {
@@ -93,18 +88,6 @@ data "aws_iam_policy_document" "aws_lb" {
     effect    = "Allow"
     resources = ["arn:${var.addon_context.aws_partition_id}:ec2:*:*:security-group/*"]
     actions   = ["ec2:CreateTags"]
-
-    condition {
-      test     = "Null"
-      variable = "aws:RequestTag/elbv2.k8s.aws/cluster"
-      values   = ["false"]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "ec2:CreateAction"
-      values   = ["CreateSecurityGroup"]
-    }
   }
 
   statement {
@@ -117,11 +100,6 @@ data "aws_iam_policy_document" "aws_lb" {
       "ec2:DeleteTags",
     ]
 
-    condition {
-      test     = "Null"
-      variable = "aws:ResourceTag/ingress.k8s.aws/cluster"
-      values   = ["false"]
-    }
   }
 
   statement {
@@ -140,11 +118,6 @@ data "aws_iam_policy_document" "aws_lb" {
       "elasticloadbalancing:RemoveTags",
     ]
 
-    condition {
-      test     = "Null"
-      variable = "aws:ResourceTag/ingress.k8s.aws/cluster"
-      values   = ["false"]
-    }
   }
 
   statement {
@@ -157,17 +130,6 @@ data "aws_iam_policy_document" "aws_lb" {
       "ec2:DeleteTags",
     ]
 
-    condition {
-      test     = "Null"
-      variable = "aws:ResourceTag/elbv2.k8s.aws/cluster"
-      values   = ["false"]
-    }
-
-    condition {
-      test     = "Null"
-      variable = "aws:RequestTag/elbv2.k8s.aws/cluster"
-      values   = ["true"]
-    }
   }
 
   statement {
@@ -181,11 +143,6 @@ data "aws_iam_policy_document" "aws_lb" {
       "ec2:RevokeSecurityGroupIngress",
     ]
 
-    condition {
-      test     = "Null"
-      variable = "aws:ResourceTag/elbv2.k8s.aws/cluster"
-      values   = ["false"]
-    }
   }
 
   statement {
@@ -198,11 +155,6 @@ data "aws_iam_policy_document" "aws_lb" {
       "elasticloadbalancing:CreateTargetGroup",
     ]
 
-    condition {
-      test     = "Null"
-      variable = "aws:RequestTag/elbv2.k8s.aws/cluster"
-      values   = ["false"]
-    }
   }
 
   statement {
@@ -233,17 +185,6 @@ data "aws_iam_policy_document" "aws_lb" {
       "elasticloadbalancing:RemoveTags",
     ]
 
-    condition {
-      test     = "Null"
-      variable = "aws:RequestTag/elbv2.k8s.aws/cluster"
-      values   = ["true"]
-    }
-
-    condition {
-      test     = "Null"
-      variable = "aws:ResourceTag/elbv2.k8s.aws/cluster"
-      values   = ["false"]
-    }
   }
 
   statement {
@@ -279,11 +220,6 @@ data "aws_iam_policy_document" "aws_lb" {
       "elasticloadbalancing:SetSubnets",
     ]
 
-    condition {
-      test     = "Null"
-      variable = "aws:ResourceTag/elbv2.k8s.aws/cluster"
-      values   = ["false"]
-    }
   }
 
   statement {
